@@ -5,8 +5,6 @@ import { SearchContext, useAuth } from "../App.tsx";
 import { Filter } from "./Filter.tsx";
 import { calculateDistance } from "../GoogleAPI/CalculateDistance.tsx";
 import { Box, Typography } from "@mui/material";
-import { sql } from "@vercel/postgres";
-import { createPool } from "@vercel/postgres";
 
 export type postProps = {
   id: number;
@@ -94,17 +92,6 @@ export function Home() {
       setFilteredPosts(finalFilteredPosts);
     }
 
-    async function getDatas() {
-      const pool = createPool({
-        connectionString:
-          "postgres://default:yCR5BSnst1rK@ep-polished-smoke-a2aidmlp-pooler.eu-central-1.aws.neon.tech:5432/verceldb?sslmode=require",
-      });
-
-      const { rows } = await pool.sql`SELECT * FROM Category;`;
-      console.log(rows);
-    }
-
-    getDatas();
     filterPosts();
   }, [posts, searchText, sliderValue, userAddress]);
 
