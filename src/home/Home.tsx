@@ -5,6 +5,7 @@ import { SearchContext, useAuth } from "../App.tsx";
 import { Filter } from "./Filter.tsx";
 import { calculateDistance } from "../GoogleAPI/CalculateDistance.tsx";
 import { Box, Typography } from "@mui/material";
+import { sql } from "@vercel/postgres";
 
 export type postProps = {
   id: number;
@@ -94,6 +95,13 @@ export function Home() {
 
     filterPosts();
   }, [posts, searchText, sliderValue, userAddress]);
+
+  async function getPostse() {
+    const { rows } = await sql`SELECT * FROM Category;`;
+    console.log(rows);
+  }
+
+  getPostse();
 
   return (
     <>
